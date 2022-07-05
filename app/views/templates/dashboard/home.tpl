@@ -1,0 +1,110 @@
+{extends file="dashboard/index.tpl"}
+{block name="body"}
+    <div class="text-center mb-2 mt-2">
+        <h4>You are welcome - {$user_info.0.names}</h4>
+    </div>
+    <div class="col-md-8 mx-auto">
+        {if empty($addresses.country)}
+            <h4 class="text-dark font-weight-bold">UPDATE YOUR PROFILE ADDRESS</h4>
+            <form action="//{$smarty.server.SERVER_NAME}/profile/update" method="post">
+                <div class="mt-4 mb-4">
+                    <label>Company name</label>
+                    <input type="text" class="form-control" value="{$addresses.company}" name="company" placeholder="Company name (Optional)" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Country</label>
+                    <select class="form-control" name="country">
+                        {foreach $country_list item=list}
+                            <option {if $list.status == 0}disabled{/if} {if $addresses.country == $list.id} selected {/if} value="{$list.id}">{$list.country}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Street Address *</label>
+                    <input type="text" value="{$addresses.street}" required class="form-control" name="street" placeholder="Street address" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Town / Village *</label>
+                    <input type="text" value="{$addresses.village}" required class="form-control" name="town" placeholder="Town or village name" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>District</label>
+                    <select class="form-control" name="district">
+                        {foreach $district_list item=list}
+                            <option {if $addresses.district == $list.id} selected {/if} {if $list.status ==0}disabled{/if} value="{$list.id}">{$list.district}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Phone *</label>
+                    <input type="text" value="{$addresses.phone_no}" required class="form-control" name="phone" placeholder="Phone number" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Postal address</label>
+                    <input type="text" value="{$addresses.box_no}" class="form-control" name="box" placeholder="Postal Address" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Email *</label>
+                    <input type="email" value="{$addresses.email}" required class="form-control" name="email" placeholder="Email address" />
+                </div>
+                <h5 class="bg-info p-2 text-white">Parent's Information</h5>
+                <div class="mt-4 mb-4">
+                    <label>Mother's name *</label>
+                    <input type="text" value="{$addresses.mothers_name}" required class="form-control" name="mothers_name" placeholder="Mother's name" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Mother's contact</label>
+                    <input type="text" value="{$addresses.mothers_contact}" class="form-control" name="mothers_contact" placeholder="Mother's Phone number" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Father's name *</label>
+                    <input type="text" value="{$addresses.fathers_name}" required class="form-control" name="fathers_name" placeholder="Father's names" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Father's contact</label>
+                    <input type="text" value="{$addresses.fathers_contact}" class="form-control" name="fathers_contact" placeholder="Father's Phone number" />
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Highest Level attained</label>
+                    <select class="form-control" name="highest_level" required>
+                        <option value="1">Degree</option>
+                        <option value="2">Diploma</option>
+                        <option value="3">UACE</option>
+                        <option value="4">UCE</option>
+                        <option value="5">PLE</option>
+                        <option value="6">Others</option>
+                    </select>
+                </div>
+                <div class="mt-4 mb-4">
+                    <label>Recent school attended</label>
+                    <input type="text" class="form-control" name="recent_school" value="{$addresses.recent_school_attended}" placeholder="Recent school attended"/>
+                </div>
+                <button class="btn btn-danger mt-4 mb-4 ">Update address</button>
+            </form>
+        {else}
+            <div class="text-center">
+                <a href="//{$smarty.server.SERVER_NAME}/applications">
+                    <button class="btn btn-dark">My Applications</button>
+                </a>
+            </div>
+            <h5 class="bg-dark text-white font-weight-bold p-3">Your profile</h5>
+            <table class="table colored-shadow">
+                <tr>
+                    <th></th><td><img src="{$user_info.0.image}" style="width: 150px"/></td>
+                </tr>
+                <tr>
+                    <th>Names</th><td>{$user_info.0.names}</td>
+                </tr>
+                <tr>
+                    <th>Username</th><td>{$user_info.0.username}</td>
+                </tr>
+                <tr>
+                    <th>Email</th><td>{$user_info.0.email}</td>
+                </tr>
+                <tr>
+                    <th>DOB</th><td>{$user_info.0.dob} ({$user_info.0.age})</td>
+                </tr>
+            </table>
+        {/if}
+    </div>
+{/block}
