@@ -2,7 +2,7 @@
 
 //Less define our simple routes in this file to help us map to the exact methods in our project
 
-$route['']                                                  =               "Home/index";
+$route['']                                                  =               "Test/index";
 
 /*
  * Static url slags
@@ -34,4 +34,5 @@ $route['cron/welcome_mail']                                 =               "Che
  */
 
 $route['program/(:any)']                                    =               "Home/program/$1";
+$route['save']      = "test/save";
 
